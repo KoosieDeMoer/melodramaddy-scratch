@@ -697,3 +697,12 @@ img[data-caption="#eye"] {
 	height: 2.25rem!important;
     width: 2.25rem!important;
 }
+
+/* Hide the default Powered by Netlify badge */
+.netlify-badge-container, 
+[class*="netlify-badge"] {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+}
