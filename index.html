@@ -113,7 +113,16 @@
       /* Stops the browser's native image ghosting */
     }
 
-    /* Custom class implementation overriding Bootstrap v5.2.3 styles */
+/* Hide the default Powered by Netlify badge */
+    .netlify-badge-container, 
+    [class*="netlify-badge"] {
+        display: none !important;
+        visibility: hidden !important;
+        opacity: 0 !important;
+        pointer-events: none !important;
+    }
+
+/* Custom class implementation overriding Bootstrap v5.2.3 styles */
     .custom-close-btn {
       background-color: #ffffff !important;
       background-size: 1em !important;
@@ -316,6 +325,7 @@
     displayFrameHolder.style.display = "none";
 
   }
+
 
 
 </script>
