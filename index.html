@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
   <meta name="description" content="" />
   <meta name="author" content="" />
-  <title>Melodramaddy scratch 1</title>
+  <title>melodramaddy</title>
   <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
   <!-- Font Awesome icons (free version)-->
   <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
@@ -139,7 +139,54 @@
     .custom-close-btn:hover {
       transform: scale(1.08);
     }
-  </style>
+
+#displayFrameHolder {
+  /* Match your original desired position parameters */
+  position: fixed; 
+  z-index: 2; 
+  top: 5%; 
+  left: 10%;
+  width: 80vw;
+  height: 80vh;
+
+  /* Crucial adjustments to eliminate the white block */
+  background: transparent; 
+  border: none;
+  padding: 0;
+  margin: 0;
+  overflow: visible; /* Allows the close button to sit cleanly on the frame boundary */
+}
+
+/* Make the frame reliably fill its parent container */
+#displayFrame {
+  width: 100%;
+  height: 100%;
+  border: none;
+  display: block; /* Changes from 'none' via JS when active */
+}
+
+/* Standard transparent close cross styling */
+.modal-close-cross {
+  position: absolute;
+  top: -10px;    /* Floats slightly above the top edge */
+  right: -10px;  /* Floats slightly past the right edge */
+  z-index: 10;
+  
+  background: none;
+  border: none;
+  color: #ffffff;      /* Clean white cross */
+  font-size: 2rem;     /* Prominent legible cross sizing */
+  line-height: 1;
+  cursor: pointer;
+  padding: 5px;
+  text-shadow: 0px 1px 3px rgba(0,0,0,0.8); /* Ensures visibility on white backgrounds */
+}
+
+.modal-close-cross:hover {
+  color: #ff4a4a; /* Subtle color shift when hovering over the cross */
+}
+
+</style>
 
 
 
@@ -153,15 +200,14 @@
       <source src="assets/video/melodramaddy.mp4" type="video/mp4">
     </video>
     <div id="content" class="video-background-content container">
-      <div id="displayFrameHolder"
-        style="position:fixed; z-index: 2; top: calc(1% - 8px); left: calc(88% - 6px); display: none;">
-        <button type="button" class="btn-close"
-          style="background-color: #ffffff; padding: 0.5rem; border-radius: 5%; box-shadow: 0px 2px 5px rgba(0,0,0,0.5);"
-          aria-label="Close" onclick="endDisplay()"></button>
-        <iframe id="displayFrame" style="position:fixed; z-index: 1; top: 5%; left: 10%; display: none;" width="80%"
+   <dialog id="displayFrameHolder">
+    <!-- Clean, semantic close cross pinned to the top right -->
+    <button type="button" class="modal-close-cross" aria-label="Close" onclick="endDisplay()">&times;</button>
+    
+    <iframe id="displayFrame" style="position:fixed; z-index: 1; top: 5%; left: 10%; display: none;" width="80%"
           height="80%" marginheight="0" scrolling="auto" onload="" allowtransparency="false" allowfullscreen></iframe>
-      </div>
-      <div class="d-flex h-100 text-center align-items-center">
+    </dialog>
+        <div class="d-flex h-100 text-center align-items-center">
 
 <!-- Gallery of draggable project buttons -->
 
@@ -283,7 +329,7 @@
 
     switch (type) {
       case 'ye':
-        url = `https://www.youtube.com/embed/${videoId}?autoplay=1`;
+        url = `https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1`;
         break;
       case 'yt':
         url = `https://www.youtube.com/watch?v=${videoId}&autoplay=1`;
@@ -311,7 +357,7 @@
       let displayFrame = document.getElementById("displayFrame");
       displayFrame.setAttribute("src", url);
       displayFrame.style.display = "block";
-      displayFrameHolder.style.display = "block";
+      displayFrameHolder.showModal();
     }
 
 
@@ -322,7 +368,7 @@
     let displayFrame = document.getElementById("displayFrame");
     displayFrame.setAttribute("src", "");
     displayFrame.style.display = "none";
-    displayFrameHolder.style.display = "none";
+    displayFrameHolder.close();
 
   }
 
