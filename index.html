@@ -248,7 +248,7 @@
     <a href="https://www.instagram.com/melodramaddy/" target="_blank" class="contact-link" aria-label="Instagram">
         <i class="fa-brands fa-instagram" aria-hidden="true"></i>
     </a>
-    <a href="mailto:melodramaddy@gmail.com" class="contact-link" aria-label="Email">
+    <a href="#" class="contact-link secure-email" data-email="aGVsbG9AZG9tYWluLmNvbQ==" aria-label="Email">
   <i class="fa-regular fa-envelope"></i>  
 </a>
 </div>
@@ -430,6 +430,22 @@
 
   }
 
+document.addEventListener("DOMContentLoaded", function() {
+    const emailLinks = document.querySelectorAll('.secure-email');
+    
+    emailLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault(); // Stop the fallback link behavior
+            
+            // Extract and decode the hidden Base64 email string
+            const encodedEmail = this.getAttribute('data-email');
+            const decodedEmail = atob(encodedEmail);
+            
+            // Direct the browser to open the mail app
+            window.location.href = "mailto:" + decodedEmail;
+        });
+    });
+});
 
 
 </script>
